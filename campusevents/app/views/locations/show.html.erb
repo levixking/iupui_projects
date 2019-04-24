@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @location.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @location.description %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @location.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @location.longitude %>
+</p>
+
+<p>
+  <strong>Map:</strong><br>
+  <iframe src=https://www.google.com/maps/embed/v1/place?key=AIzaSyDTyKRKi3uwkOqhlTWHg4vtnUPpUenAQyk&q=<%=@location.latitude%>,<%=@location.longitude%>></iframe>
+</p>
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>
+<br>
+<br>
+<br>
+<% content_for :sidebar do %>
+	<h4>Upcoming Meetings</h4>
+	<table>
+		<% $i = 0 %>
+		<% @meetings.each do |m|%>
+			<% if m.location_id == @location.id && m.end_time > Time.now && $i < 5%>
+				<tr><td><a href=<% Rails.root %>"/meetings/<%= m.id %>"><%= m.name %></a></td></tr>
+				<% $i += 1 %>
+			<% end %>
+		<% end %>
+	</table>
+<% end%>

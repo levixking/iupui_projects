@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IUPUI Campus Events</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div class=".container">
+		<div class="jumbotron" id="header">
+			<h1>IU<span>PU</span>I Campus Events</h1>
+			<ul class="nav navbar-nav">
+				<li><a href=<%Rails.root%>"/">Events</a></li>
+	        	<li><a href=<%Rails.root%>"/attendees">Attendees</a></li>
+	        	<li><a href=<%Rails.root%>"/locations">Locations</a></li>
+	        	<li><a href=<%Rails.root%>"/meetings">Meetings</a></li>
+	        	<li><a href=<%Rails.root%>"/sponsors">Sponsors</a></li>
+	      	</ul>
+      	</div>
+	</div>
+	<div class=".container">
+		<div class=".row">
+			<div class="col-md-8" id="content">
+				<%= yield%>
+			</div>
+			<div class="col-md-4" id="sidebar">
+				<br>
+				<%= yield :sidebar %>
+			</div>
+		</div>
+	</div>
+	<footer class="footer" id="footer">
+      <div class=".container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<%= form_for(@repair_request) do |f| %>
+  <% if @repair_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@repair_request.errors.count, "error") %> prohibited this repair_request from being saved:</h2>
+
+      <ul>
+      <% @repair_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :open_date %><br>
+    <% if can? :manage, :all %>
+    	<%= f.date_select :open_date, :disabled => true %>
+    <% else %>
+    	<%= f.date_select :open_date %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :close_date %><br>
+    <% if can? :manage, :all %>
+    	<%= f.date_select :close_date %>
+    <% else %>
+    	<%= f.date_select :close_date, :disabled => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :request_details %><br>
+    <% if can? :manage, :all %>
+    	<%= f.text_area :request_details, :readonly => true %>
+    <% else %>
+    	<%= f.text_area :request_details %>
+    <% end %>
+  </div>
+  <div class="field, invisible">
+    <%= f.label :submitter_id %><br>
+    <% if can? :manage, :all %>
+    	<%= f.number_field :submitter_id, :readonly => true %>
+    <% else %>
+    	<%= f.number_field :submitter_id, :value => current_user.id, :readonly => true %>
+    <% end %>
+  </div>
+  <div class="field, invisible">
+    <%= f.label :responder_id %><br>
+    <% if can? :manage, :all %>
+    	<%= f.number_field :responder_id, :value => current_user.id, :readonly => true %>
+    <% else %>
+    	<%= f.number_field :responder_id, :readonly => true %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @sponsor.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <a href=<%=@sponsor.url%>><%= @sponsor.url %></a>
+</p>
+
+<p>
+  <strong>Logo:</strong>
+  <%= image_tag @sponsor.logo %>
+</p>
+
+<%= link_to 'Edit', edit_sponsor_path(@sponsor) %> |
+<%= link_to 'Back', sponsors_path %>
+
+<% content_for :sidebar do%>
+	<h4>Sponsored Events</h4>
+	<table>
+		<% @sponsor.events.each do |se|%>
+			<tr><td><a href="<%Rails.root%>/events/<%=se.id%>"><%= se.name %><br><%= se.start_date %></a></td></tr>
+		<%end%>
+	</table>
+<%end%>

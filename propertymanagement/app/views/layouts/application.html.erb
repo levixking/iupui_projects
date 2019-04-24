@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Propertymanagement</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= video_tag "bokeh.m4v", :id => "videoBackground", :controls => false, :autoplay => true, :loop => true %>
+<div id="main_container" class="container">
+	<div id="sidebar" class="col-md-3">
+		<h1>King Properties</h1>
+		<% if current_user %>
+			<h4>Welcome "<%=current_user.username%>"</h4>
+		<% end %>
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="<%Rails.root%>/">Home</a></li>
+			<% if current_user %>
+				<li><a href="<%Rails.root%>/logout">Logout</a></li>
+			<% else %>
+				<li><a href="<%Rails.root%>/login">Login</a></li>
+				<li><a href="<%Rails.root%>/register">Register</a></li>
+			<% end %>
+			<% if current_user %>
+				<li><a href="<%Rails.root%>/repair_requests">Repair Requests</a></li>
+				<li><a href="<%Rails.root%>/payments">Payments</a></li>
+			<% end %>
+			<% if current_user and can? :manage, :all%>
+				<li><a href="<%Rails.root%>/properties">Properties</a></li>
+				<li><a href="<%Rails.root%>/units">Units</a></li>
+				<li><a href="<%Rails.root%>/leases">Leases</a></li>
+			<% end %>
+		</ul>
+	</div>
+	<div id="content" class="col-md-8">
+		<%= yield %>
+		<p id="error">
+			<%= flash[:error] %>
+		</p>
+	</div>
+</div>
+
+</body>
+</html>

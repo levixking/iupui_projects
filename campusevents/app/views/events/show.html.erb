@@ -1,0 +1,66 @@
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @event.name %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @event.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @event.end_date %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @event.url %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>
+
+<% content_for :sidebar do %>
+	<table>
+		<h4>Sponsors</h4>
+		<tr>
+			<td>
+				<% @event.sponsors.each do |es| %>
+					<a href="<%Rails.root%>/sponsors/<%= es.id%>"><%= image_tag es.logo %></a>
+				<%end%>
+			</td>
+		</tr>
+	</table>
+	<table>
+	<h4>Scheduled Meetings</h4>
+	<% @meetings.each do |m|%>
+		<% if m.event_id == @event.id %>
+				<tbody>
+					<tr>
+						<th>Meeting</th>
+						<th>Start Time</th>
+						<th>End Time</th>
+						<th>Location</th>
+					</tr>
+					<tr>
+						<td><%= m.name %></td>
+						<td><%= m.start_time %></td>
+						<td><%= m.end_time %></td>
+						<td>
+							<% @locations.each do |l|%>
+								<% if l.id == m.location_id %>
+									<%= l.name %>
+								<% end %>
+							<% end %>
+						</td>
+					</tr>
+				</tbody>
+		<% end %>
+	<% end %>
+	</table>
+<% end %>
